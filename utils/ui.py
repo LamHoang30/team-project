@@ -96,7 +96,9 @@ def _ensure_healing_wav_file() -> str:
 
 
 def render_healing_audio():
-    """Trình phát nhạc chữa lành 432Hz ở thanh bên với tự động kích hoạt khi chạm trang."""
+    """Trình phát nhạc chữa lành 432Hz ở thanh bên với tự động kích hoạt ngay khi người dùng chạm/click bất kỳ đâu."""
+    import streamlit.components.v1 as components
+
     wav_file = _ensure_healing_wav_file()
     label_title = tr(
         "🎵 Nhạc thư giãn y khoa (432Hz)",
@@ -111,25 +113,35 @@ def render_healing_audio():
         st.caption(label_title)
         st.audio(wav_file, format="audio/wav", loop=True, autoplay=True)
 
-    st.markdown(
+    components.html(
         """
         <script>
         (function() {
-            const unlockAudio = () => {
-                const audios = window.parent.document.querySelectorAll('audio');
+            const doc = window.parent.document;
+            const tryPlayAll = () => {
+                const audios = doc.querySelectorAll('audio');
+                let allPlaying = audios.length > 0;
                 audios.forEach(a => {
+                    a.loop = true;
                     if (a.paused) {
-                        a.play().catch(() => {});
+                        a.play().catch(() => { allPlaying = false; });
                     }
                 });
+                if (allPlaying) {
+                    ['click', 'pointerdown', 'touchstart', 'keydown'].forEach(evt => {
+                        doc.removeEventListener(evt, tryPlayAll, true);
+                    });
+                }
             };
-            ['click', 'touchstart', 'keydown'].forEach(evt => {
-                window.parent.document.addEventListener(evt, unlockAudio, { once: true });
+            tryPlayAll();
+            ['click', 'pointerdown', 'touchstart', 'keydown'].forEach(evt => {
+                doc.addEventListener(evt, tryPlayAll, true);
             });
         })();
         </script>
         """,
-        unsafe_allow_html=True,
+        height=0,
+        width=0,
     )
 
 
