@@ -1,0 +1,7682 @@
+{
+  "target": "Diabetes_binary",
+  "target_meaning": {
+    "0": "No self-reported diabetes/prediabetes",
+    "1": "Self-reported diabetes or prediabetes"
+  },
+  "sources": {
+    "Dataset": "https://www.kaggle.com/datasets/alexteboul/diabetes-health-indicators-dataset",
+    "CDC codebook": "https://www.cdc.gov/brfss/annual_data/2015/pdf/CODEBOOK15_LLCP.pdf",
+    "CDC survey": "https://www.cdc.gov/brfss/annual_data/annual_2015.html"
+  },
+  "rows": 253680,
+  "features": [
+    "Age",
+    "BMI",
+    "HighBP",
+    "HighChol",
+    "GenHlth"
+  ],
+  "feature_names": [
+    "Age",
+    "BMI",
+    "HighBP",
+    "HighChol",
+    "GenHlth"
+  ],
+  "valid_input_ranges": {
+    "Age": [
+      1.0,
+      13.0
+    ],
+    "BMI": [
+      12.0,
+      98.0
+    ],
+    "HighBP": [
+      0.0,
+      1.0
+    ],
+    "HighChol": [
+      0.0,
+      1.0
+    ],
+    "GenHlth": [
+      1.0,
+      5.0
+    ]
+  },
+  "valid_values": {
+    "Age": [
+      1.0,
+      2.0,
+      3.0,
+      4.0,
+      5.0,
+      6.0,
+      7.0,
+      8.0,
+      9.0,
+      10.0,
+      11.0,
+      12.0,
+      13.0
+    ],
+    "HighBP": [
+      0.0,
+      1.0
+    ],
+    "HighChol": [
+      0.0,
+      1.0
+    ],
+    "GenHlth": [
+      1.0,
+      2.0,
+      3.0,
+      4.0,
+      5.0
+    ]
+  },
+  "algorithm": "Gradient Boosting (Tuned)",
+  "selected_candidate": "short | Gradient Boosting (Tuned)",
+  "tuned_hyperparameters": {
+    "min_samples_leaf": 20,
+    "max_leaf_nodes": 15,
+    "max_iter": 450,
+    "max_depth": 3,
+    "learning_rate": 0.08,
+    "l2_regularization": 5.0
+  },
+  "cv_tuned_roc_auc": 0.8211668220675405,
+  "pca_experiment": {
+    "summary": {
+      "raw_features": 21,
+      "encoded_dimensions": 63,
+      "retained_components": 37,
+      "explained_variance_ratio": 0.9065,
+      "top_5_component_variances": [
+        0.0876,
+        0.0493,
+        0.0417,
+        0.0367,
+        0.0338
+      ]
+    },
+    "candidates": [
+      {
+        "candidate": "full_pca_90pct | Logistic Regression",
+        "feature_set": "pca_21_to_90pct_var",
+        "algorithm": "Logistic Regression + PCA (37 PCs)",
+        "n_features": 21,
+        "n_components": 37,
+        "roc_auc": 0.8089473694423728,
+        "average_precision": 0.39093733619671195,
+        "brier": 0.10063521572935026,
+        "precision": 0.5382041271611824,
+        "recall": 0.13651152921205262,
+        "f1": 0.2177837959828481,
+        "confusion_matrix": [
+          [
+            42839,
+            828
+          ],
+          [
+            6104,
+            965
+          ]
+        ],
+        "n": 50736,
+        "positive_count": 7069
+      },
+      {
+        "candidate": "full_pca_90pct | Gradient Boosting",
+        "feature_set": "pca_21_to_90pct_var",
+        "algorithm": "Gradient Boosting + PCA (37 PCs)",
+        "n_features": 21,
+        "n_components": 37,
+        "roc_auc": 0.8172509611938107,
+        "average_precision": 0.4051164289655374,
+        "brier": 0.09903814087285866,
+        "precision": 0.5880370682392586,
+        "recall": 0.09874098175130853,
+        "f1": 0.1690891472868217,
+        "confusion_matrix": [
+          [
+            43178,
+            489
+          ],
+          [
+            6371,
+            698
+          ]
+        ],
+        "n": 50736,
+        "positive_count": 7069
+      }
+    ],
+    "rationale": "Optional dimensionality-reduction benchmark using all 21 predictors compressed via PCA (90% variance retained). Kept as an analytical comparison only because deploying PCA in the live form would still force users to answer all 21 survey questions."
+  },
+  "threshold": 0.1625544730854861,
+  "cost_assumptions": {
+    "FP": 1,
+    "FN": 5,
+    "units": "illustrative relative units, not medical costs"
+  },
+  "test_metrics": {
+    "roc_auc": 0.8221706338240502,
+    "average_precision": 0.41647742397201054,
+    "brier": 0.09805939550578456,
+    "precision": 0.32251295976302147,
+    "recall": 0.7392841986136653,
+    "f1": 0.4491041120611868,
+    "confusion_matrix": [
+      [
+        32689,
+        10978
+      ],
+      [
+        1843,
+        5226
+      ]
+    ],
+    "n": 50736,
+    "positive_count": 7069
+  },
+  "test_metrics_deduplicated": {
+    "roc_auc": 0.8069713579792175,
+    "average_precision": 0.4190300914166539,
+    "brier": 0.1072800654891817,
+    "precision": 0.3255886773547094,
+    "recall": 0.7400711743772243,
+    "f1": 0.4522245900926369,
+    "confusion_matrix": [
+      [
+        28109,
+        10769
+      ],
+      [
+        1826,
+        5199
+      ]
+    ],
+    "n": 45903,
+    "positive_count": 7025
+  },
+  "validation_metrics": {
+    "roc_auc": 0.8210413341757838,
+    "average_precision": 0.4186861618360042,
+    "brier": 0.09800815983744937,
+    "precision": 0.32375864236329355,
+    "recall": 0.7286744942707597,
+    "f1": 0.4483223813046695,
+    "confusion_matrix": [
+      [
+        32908,
+        10759
+      ],
+      [
+        1918,
+        5151
+      ]
+    ],
+    "n": 50736,
+    "positive_count": 7069
+  },
+  "validation_metrics_deduplicated": {
+    "roc_auc": 0.806494541894017,
+    "average_precision": 0.4220197465487833,
+    "brier": 0.10713757464453107,
+    "precision": 0.3278562751742216,
+    "recall": 0.7301722910437135,
+    "f1": 0.4525238263325097,
+    "confusion_matrix": [
+      [
+        28349,
+        10513
+      ],
+      [
+        1895,
+        5128
+      ]
+    ],
+    "n": 45885,
+    "positive_count": 7023
+  },
+  "validation_candidates": [
+    {
+      "candidate": "full | Logistic Regression",
+      "feature_set": "full",
+      "algorithm": "Logistic Regression",
+      "n_features": 21,
+      "roc_auc": 0.8232825968618198,
+      "average_precision": 0.41063565839546734,
+      "brier": 0.09836678422907064,
+      "precision": 0.5497967479674797,
+      "recall": 0.15306266798698542,
+      "f1": 0.23945999778687618,
+      "confusion_matrix": [
+        [
+          42781,
+          886
+        ],
+        [
+          5987,
+          1082
+        ]
+      ],
+      "n": 50736,
+      "positive_count": 7069
+    },
+    {
+      "candidate": "full | Random Forest",
+      "feature_set": "full",
+      "algorithm": "Random Forest",
+      "n_features": 21,
+      "roc_auc": 0.8204739963104363,
+      "average_precision": 0.41788823783778173,
+      "brier": 0.09837565109679158,
+      "precision": 0.6192384769539078,
+      "recall": 0.08742396378554251,
+      "f1": 0.1532168092227594,
+      "confusion_matrix": [
+        [
+          43287,
+          380
+        ],
+        [
+          6451,
+          618
+        ]
+      ],
+      "n": 50736,
+      "positive_count": 7069
+    },
+    {
+      "candidate": "full | Gradient Boosting",
+      "feature_set": "full",
+      "algorithm": "Gradient Boosting",
+      "n_features": 21,
+      "roc_auc": 0.8290791232763174,
+      "average_precision": 0.43094522835700794,
+      "brier": 0.09676534998731215,
+      "precision": 0.5606820461384152,
+      "recall": 0.15815532607158014,
+      "f1": 0.2467174224870352,
+      "confusion_matrix": [
+        [
+          42791,
+          876
+        ],
+        [
+          5951,
+          1118
+        ]
+      ],
+      "n": 50736,
+      "positive_count": 7069
+    },
+    {
+      "candidate": "short | Logistic Regression",
+      "feature_set": "short",
+      "algorithm": "Logistic Regression",
+      "n_features": 5,
+      "roc_auc": 0.8157632911457238,
+      "average_precision": 0.40024910161533755,
+      "brier": 0.09943783789654576,
+      "precision": 0.5476613380698638,
+      "recall": 0.13085302022916961,
+      "f1": 0.21123544188170815,
+      "confusion_matrix": [
+        [
+          42903,
+          764
+        ],
+        [
+          6144,
+          925
+        ]
+      ],
+      "n": 50736,
+      "positive_count": 7069
+    },
+    {
+      "candidate": "short | Random Forest",
+      "feature_set": "short",
+      "algorithm": "Random Forest",
+      "n_features": 5,
+      "roc_auc": 0.8172797853537457,
+      "average_precision": 0.41549061913176794,
+      "brier": 0.09853331241231453,
+      "precision": 0.5983037779491134,
+      "recall": 0.1097750742679304,
+      "f1": 0.18551278986373415,
+      "confusion_matrix": [
+        [
+          43146,
+          521
+        ],
+        [
+          6293,
+          776
+        ]
+      ],
+      "n": 50736,
+      "positive_count": 7069
+    },
+    {
+      "candidate": "short | Gradient Boosting",
+      "feature_set": "short",
+      "algorithm": "Gradient Boosting",
+      "n_features": 5,
+      "roc_auc": 0.8208605478136316,
+      "average_precision": 0.41909457199281835,
+      "brier": 0.09800558971626412,
+      "precision": 0.5805330243337196,
+      "recall": 0.14174565002121942,
+      "f1": 0.22785673678226265,
+      "confusion_matrix": [
+        [
+          42943,
+          724
+        ],
+        [
+          6067,
+          1002
+        ]
+      ],
+      "n": 50736,
+      "positive_count": 7069
+    },
+    {
+      "candidate": "short | Gradient Boosting (Tuned)",
+      "feature_set": "short",
+      "algorithm": "Gradient Boosting (Tuned)",
+      "n_features": 5,
+      "roc_auc": 0.8210413341757838,
+      "average_precision": 0.4186861618360042,
+      "brier": 0.09800815983744937,
+      "precision": 0.5804235832856325,
+      "recall": 0.14344320271608432,
+      "f1": 0.23003629764065336,
+      "confusion_matrix": [
+        [
+          42934,
+          733
+        ],
+        [
+          6055,
+          1014
+        ]
+      ],
+      "n": 50736,
+      "positive_count": 7069
+    }
+  ],
+  "validation_reference_models": [
+    {
+      "candidate": "baseline: Age + BMI only | Logistic Regression",
+      "feature_set": "baseline",
+      "algorithm": "Logistic Regression",
+      "n_features": 2,
+      "roc_auc": 0.7463408113662647,
+      "average_precision": 0.3040519568188302,
+      "brier": 0.10973078004067098,
+      "precision": 0.42190305206463197,
+      "recall": 0.03324374027443769,
+      "f1": 0.06163126147390506,
+      "confusion_matrix": [
+        [
+          43345,
+          322
+        ],
+        [
+          6834,
+          235
+        ]
+      ],
+      "n": 50736,
+      "positive_count": 7069
+    }
+  ],
+  "explanation": {
+    "method": "Exact Shapley values over the questions, on the probability scale, relative to the average of a 1,000-row training background. Contributions add up to (your estimate - background average).",
+    "background": [
+      {
+        "Age": 10.0,
+        "BMI": 28.0,
+        "HighBP": 1.0,
+        "HighChol": 0.0,
+        "GenHlth": 4.0
+      },
+      {
+        "Age": 11.0,
+        "BMI": 29.0,
+        "HighBP": 1.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 5.0,
+        "BMI": 22.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 7.0,
+        "BMI": 30.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 1.0
+      },
+      {
+        "Age": 10.0,
+        "BMI": 37.0,
+        "HighBP": 1.0,
+        "HighChol": 0.0,
+        "GenHlth": 4.0
+      },
+      {
+        "Age": 4.0,
+        "BMI": 39.0,
+        "HighBP": 0.0,
+        "HighChol": 1.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 8.0,
+        "BMI": 28.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 12.0,
+        "BMI": 22.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 7.0,
+        "BMI": 33.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 9.0,
+        "BMI": 24.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 7.0,
+        "BMI": 28.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 5.0,
+        "BMI": 26.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 8.0,
+        "BMI": 27.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 5.0
+      },
+      {
+        "Age": 8.0,
+        "BMI": 24.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 11.0,
+        "BMI": 32.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 5.0,
+        "BMI": 32.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 10.0,
+        "BMI": 39.0,
+        "HighBP": 1.0,
+        "HighChol": 0.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 8.0,
+        "BMI": 25.0,
+        "HighBP": 0.0,
+        "HighChol": 1.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 7.0,
+        "BMI": 26.0,
+        "HighBP": 0.0,
+        "HighChol": 1.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 9.0,
+        "BMI": 42.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 5.0,
+        "BMI": 26.0,
+        "HighBP": 1.0,
+        "HighChol": 0.0,
+        "GenHlth": 4.0
+      },
+      {
+        "Age": 5.0,
+        "BMI": 28.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 2.0,
+        "BMI": 21.0,
+        "HighBP": 1.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 12.0,
+        "BMI": 27.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 4.0
+      },
+      {
+        "Age": 10.0,
+        "BMI": 31.0,
+        "HighBP": 0.0,
+        "HighChol": 1.0,
+        "GenHlth": 1.0
+      },
+      {
+        "Age": 7.0,
+        "BMI": 29.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 4.0,
+        "BMI": 32.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 6.0,
+        "BMI": 32.0,
+        "HighBP": 0.0,
+        "HighChol": 1.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 11.0,
+        "BMI": 21.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 12.0,
+        "BMI": 20.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 1.0,
+        "BMI": 19.0,
+        "HighBP": 1.0,
+        "HighChol": 0.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 11.0,
+        "BMI": 24.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 7.0,
+        "BMI": 26.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 4.0
+      },
+      {
+        "Age": 8.0,
+        "BMI": 23.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 7.0,
+        "BMI": 34.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 4.0
+      },
+      {
+        "Age": 11.0,
+        "BMI": 26.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 1.0
+      },
+      {
+        "Age": 4.0,
+        "BMI": 31.0,
+        "HighBP": 0.0,
+        "HighChol": 1.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 5.0,
+        "BMI": 19.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 10.0,
+        "BMI": 25.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 8.0,
+        "BMI": 42.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 3.0,
+        "BMI": 31.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 13.0,
+        "BMI": 22.0,
+        "HighBP": 1.0,
+        "HighChol": 0.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 9.0,
+        "BMI": 30.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 1.0
+      },
+      {
+        "Age": 9.0,
+        "BMI": 23.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 5.0,
+        "BMI": 23.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 1.0
+      },
+      {
+        "Age": 5.0,
+        "BMI": 31.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 11.0,
+        "BMI": 27.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 5.0
+      },
+      {
+        "Age": 9.0,
+        "BMI": 35.0,
+        "HighBP": 0.0,
+        "HighChol": 1.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 10.0,
+        "BMI": 27.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 8.0,
+        "BMI": 34.0,
+        "HighBP": 0.0,
+        "HighChol": 1.0,
+        "GenHlth": 5.0
+      },
+      {
+        "Age": 5.0,
+        "BMI": 31.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 2.0,
+        "BMI": 26.0,
+        "HighBP": 0.0,
+        "HighChol": 1.0,
+        "GenHlth": 1.0
+      },
+      {
+        "Age": 6.0,
+        "BMI": 47.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 4.0
+      },
+      {
+        "Age": 8.0,
+        "BMI": 32.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 6.0,
+        "BMI": 27.0,
+        "HighBP": 0.0,
+        "HighChol": 1.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 9.0,
+        "BMI": 22.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 9.0,
+        "BMI": 26.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 11.0,
+        "BMI": 23.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 12.0,
+        "BMI": 26.0,
+        "HighBP": 1.0,
+        "HighChol": 0.0,
+        "GenHlth": 4.0
+      },
+      {
+        "Age": 12.0,
+        "BMI": 24.0,
+        "HighBP": 0.0,
+        "HighChol": 1.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 9.0,
+        "BMI": 20.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 1.0
+      },
+      {
+        "Age": 6.0,
+        "BMI": 27.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 4.0
+      },
+      {
+        "Age": 9.0,
+        "BMI": 21.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 1.0
+      },
+      {
+        "Age": 1.0,
+        "BMI": 26.0,
+        "HighBP": 1.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 11.0,
+        "BMI": 29.0,
+        "HighBP": 0.0,
+        "HighChol": 1.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 8.0,
+        "BMI": 20.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 7.0,
+        "BMI": 39.0,
+        "HighBP": 1.0,
+        "HighChol": 0.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 3.0,
+        "BMI": 27.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 7.0,
+        "BMI": 32.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 10.0,
+        "BMI": 19.0,
+        "HighBP": 0.0,
+        "HighChol": 1.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 8.0,
+        "BMI": 31.0,
+        "HighBP": 1.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 10.0,
+        "BMI": 27.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 12.0,
+        "BMI": 25.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 5.0,
+        "BMI": 31.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 12.0,
+        "BMI": 27.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 9.0,
+        "BMI": 26.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 11.0,
+        "BMI": 27.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 9.0,
+        "BMI": 23.0,
+        "HighBP": 0.0,
+        "HighChol": 1.0,
+        "GenHlth": 1.0
+      },
+      {
+        "Age": 8.0,
+        "BMI": 30.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 4.0
+      },
+      {
+        "Age": 4.0,
+        "BMI": 27.0,
+        "HighBP": 0.0,
+        "HighChol": 1.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 8.0,
+        "BMI": 25.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 4.0
+      },
+      {
+        "Age": 11.0,
+        "BMI": 41.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 4.0
+      },
+      {
+        "Age": 10.0,
+        "BMI": 26.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 9.0,
+        "BMI": 30.0,
+        "HighBP": 1.0,
+        "HighChol": 0.0,
+        "GenHlth": 4.0
+      },
+      {
+        "Age": 9.0,
+        "BMI": 37.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 4.0
+      },
+      {
+        "Age": 13.0,
+        "BMI": 27.0,
+        "HighBP": 1.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 9.0,
+        "BMI": 35.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 5.0
+      },
+      {
+        "Age": 6.0,
+        "BMI": 23.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 9.0,
+        "BMI": 33.0,
+        "HighBP": 0.0,
+        "HighChol": 1.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 8.0,
+        "BMI": 27.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 6.0,
+        "BMI": 57.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 5.0
+      },
+      {
+        "Age": 9.0,
+        "BMI": 27.0,
+        "HighBP": 1.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 10.0,
+        "BMI": 29.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 8.0,
+        "BMI": 20.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 5.0
+      },
+      {
+        "Age": 2.0,
+        "BMI": 18.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 10.0,
+        "BMI": 21.0,
+        "HighBP": 1.0,
+        "HighChol": 0.0,
+        "GenHlth": 4.0
+      },
+      {
+        "Age": 12.0,
+        "BMI": 20.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 3.0,
+        "BMI": 37.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 1.0
+      },
+      {
+        "Age": 6.0,
+        "BMI": 24.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 11.0,
+        "BMI": 33.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 4.0
+      },
+      {
+        "Age": 3.0,
+        "BMI": 39.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 11.0,
+        "BMI": 28.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 7.0,
+        "BMI": 24.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 1.0
+      },
+      {
+        "Age": 3.0,
+        "BMI": 31.0,
+        "HighBP": 0.0,
+        "HighChol": 1.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 7.0,
+        "BMI": 27.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 5.0
+      },
+      {
+        "Age": 7.0,
+        "BMI": 23.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 4.0
+      },
+      {
+        "Age": 2.0,
+        "BMI": 23.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 10.0,
+        "BMI": 24.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 8.0,
+        "BMI": 30.0,
+        "HighBP": 0.0,
+        "HighChol": 1.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 9.0,
+        "BMI": 28.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 4.0
+      },
+      {
+        "Age": 13.0,
+        "BMI": 24.0,
+        "HighBP": 1.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 3.0,
+        "BMI": 28.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 9.0,
+        "BMI": 23.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 9.0,
+        "BMI": 39.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 6.0,
+        "BMI": 24.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 7.0,
+        "BMI": 34.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 10.0,
+        "BMI": 21.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 1.0
+      },
+      {
+        "Age": 7.0,
+        "BMI": 24.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 1.0
+      },
+      {
+        "Age": 10.0,
+        "BMI": 31.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 4.0
+      },
+      {
+        "Age": 4.0,
+        "BMI": 40.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 4.0
+      },
+      {
+        "Age": 10.0,
+        "BMI": 34.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 4.0
+      },
+      {
+        "Age": 7.0,
+        "BMI": 29.0,
+        "HighBP": 0.0,
+        "HighChol": 1.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 10.0,
+        "BMI": 34.0,
+        "HighBP": 1.0,
+        "HighChol": 0.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 10.0,
+        "BMI": 25.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 1.0
+      },
+      {
+        "Age": 6.0,
+        "BMI": 32.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 1.0
+      },
+      {
+        "Age": 3.0,
+        "BMI": 29.0,
+        "HighBP": 0.0,
+        "HighChol": 1.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 7.0,
+        "BMI": 24.0,
+        "HighBP": 1.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 11.0,
+        "BMI": 23.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 9.0,
+        "BMI": 33.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 10.0,
+        "BMI": 29.0,
+        "HighBP": 0.0,
+        "HighChol": 1.0,
+        "GenHlth": 4.0
+      },
+      {
+        "Age": 6.0,
+        "BMI": 34.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 13.0,
+        "BMI": 24.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 5.0,
+        "BMI": 29.0,
+        "HighBP": 1.0,
+        "HighChol": 0.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 7.0,
+        "BMI": 22.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 12.0,
+        "BMI": 29.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 4.0
+      },
+      {
+        "Age": 8.0,
+        "BMI": 23.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 1.0
+      },
+      {
+        "Age": 12.0,
+        "BMI": 29.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 8.0,
+        "BMI": 33.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 10.0,
+        "BMI": 20.0,
+        "HighBP": 1.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 10.0,
+        "BMI": 21.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 10.0,
+        "BMI": 27.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 1.0,
+        "BMI": 23.0,
+        "HighBP": 0.0,
+        "HighChol": 1.0,
+        "GenHlth": 1.0
+      },
+      {
+        "Age": 6.0,
+        "BMI": 25.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 11.0,
+        "BMI": 32.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 5.0
+      },
+      {
+        "Age": 13.0,
+        "BMI": 27.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 4.0
+      },
+      {
+        "Age": 13.0,
+        "BMI": 23.0,
+        "HighBP": 0.0,
+        "HighChol": 1.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 10.0,
+        "BMI": 25.0,
+        "HighBP": 0.0,
+        "HighChol": 1.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 8.0,
+        "BMI": 37.0,
+        "HighBP": 0.0,
+        "HighChol": 1.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 6.0,
+        "BMI": 30.0,
+        "HighBP": 0.0,
+        "HighChol": 1.0,
+        "GenHlth": 1.0
+      },
+      {
+        "Age": 12.0,
+        "BMI": 26.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 11.0,
+        "BMI": 33.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 1.0
+      },
+      {
+        "Age": 8.0,
+        "BMI": 26.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 13.0,
+        "BMI": 31.0,
+        "HighBP": 1.0,
+        "HighChol": 0.0,
+        "GenHlth": 5.0
+      },
+      {
+        "Age": 5.0,
+        "BMI": 32.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 4.0
+      },
+      {
+        "Age": 11.0,
+        "BMI": 27.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 4.0
+      },
+      {
+        "Age": 11.0,
+        "BMI": 33.0,
+        "HighBP": 0.0,
+        "HighChol": 1.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 13.0,
+        "BMI": 20.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 4.0
+      },
+      {
+        "Age": 12.0,
+        "BMI": 42.0,
+        "HighBP": 1.0,
+        "HighChol": 0.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 10.0,
+        "BMI": 35.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 10.0,
+        "BMI": 32.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 8.0,
+        "BMI": 29.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 11.0,
+        "BMI": 28.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 5.0
+      },
+      {
+        "Age": 8.0,
+        "BMI": 30.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 4.0,
+        "BMI": 59.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 4.0
+      },
+      {
+        "Age": 4.0,
+        "BMI": 35.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 4.0
+      },
+      {
+        "Age": 2.0,
+        "BMI": 35.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 6.0,
+        "BMI": 28.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 8.0,
+        "BMI": 26.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 3.0,
+        "BMI": 36.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 12.0,
+        "BMI": 23.0,
+        "HighBP": 1.0,
+        "HighChol": 0.0,
+        "GenHlth": 1.0
+      },
+      {
+        "Age": 5.0,
+        "BMI": 32.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 9.0,
+        "BMI": 26.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 3.0,
+        "BMI": 24.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 1.0
+      },
+      {
+        "Age": 12.0,
+        "BMI": 25.0,
+        "HighBP": 1.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 13.0,
+        "BMI": 24.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 4.0
+      },
+      {
+        "Age": 4.0,
+        "BMI": 28.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 6.0,
+        "BMI": 28.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 11.0,
+        "BMI": 28.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 4.0,
+        "BMI": 25.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 5.0,
+        "BMI": 23.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 8.0,
+        "BMI": 23.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 4.0,
+        "BMI": 37.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 4.0
+      },
+      {
+        "Age": 4.0,
+        "BMI": 33.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 4.0
+      },
+      {
+        "Age": 4.0,
+        "BMI": 40.0,
+        "HighBP": 1.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 12.0,
+        "BMI": 19.0,
+        "HighBP": 1.0,
+        "HighChol": 0.0,
+        "GenHlth": 4.0
+      },
+      {
+        "Age": 4.0,
+        "BMI": 28.0,
+        "HighBP": 0.0,
+        "HighChol": 1.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 10.0,
+        "BMI": 33.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 8.0,
+        "BMI": 33.0,
+        "HighBP": 1.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 11.0,
+        "BMI": 24.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 8.0,
+        "BMI": 34.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 2.0,
+        "BMI": 20.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 8.0,
+        "BMI": 31.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 11.0,
+        "BMI": 24.0,
+        "HighBP": 0.0,
+        "HighChol": 1.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 6.0,
+        "BMI": 33.0,
+        "HighBP": 0.0,
+        "HighChol": 1.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 9.0,
+        "BMI": 26.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 7.0,
+        "BMI": 31.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 8.0,
+        "BMI": 42.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 4.0
+      },
+      {
+        "Age": 9.0,
+        "BMI": 34.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 5.0
+      },
+      {
+        "Age": 9.0,
+        "BMI": 34.0,
+        "HighBP": 0.0,
+        "HighChol": 1.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 8.0,
+        "BMI": 34.0,
+        "HighBP": 1.0,
+        "HighChol": 0.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 5.0,
+        "BMI": 31.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 11.0,
+        "BMI": 32.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 6.0,
+        "BMI": 28.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 4.0,
+        "BMI": 39.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 11.0,
+        "BMI": 27.0,
+        "HighBP": 1.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 8.0,
+        "BMI": 21.0,
+        "HighBP": 0.0,
+        "HighChol": 1.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 5.0,
+        "BMI": 32.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 1.0
+      },
+      {
+        "Age": 3.0,
+        "BMI": 24.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 11.0,
+        "BMI": 33.0,
+        "HighBP": 1.0,
+        "HighChol": 0.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 10.0,
+        "BMI": 33.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 4.0
+      },
+      {
+        "Age": 12.0,
+        "BMI": 27.0,
+        "HighBP": 0.0,
+        "HighChol": 1.0,
+        "GenHlth": 4.0
+      },
+      {
+        "Age": 7.0,
+        "BMI": 30.0,
+        "HighBP": 0.0,
+        "HighChol": 1.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 13.0,
+        "BMI": 24.0,
+        "HighBP": 0.0,
+        "HighChol": 1.0,
+        "GenHlth": 5.0
+      },
+      {
+        "Age": 5.0,
+        "BMI": 25.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 13.0,
+        "BMI": 21.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 4.0
+      },
+      {
+        "Age": 4.0,
+        "BMI": 26.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 7.0,
+        "BMI": 30.0,
+        "HighBP": 1.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 6.0,
+        "BMI": 29.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 6.0,
+        "BMI": 29.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 8.0,
+        "BMI": 35.0,
+        "HighBP": 1.0,
+        "HighChol": 0.0,
+        "GenHlth": 1.0
+      },
+      {
+        "Age": 7.0,
+        "BMI": 55.0,
+        "HighBP": 1.0,
+        "HighChol": 0.0,
+        "GenHlth": 4.0
+      },
+      {
+        "Age": 13.0,
+        "BMI": 23.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 4.0,
+        "BMI": 20.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 3.0,
+        "BMI": 33.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 11.0,
+        "BMI": 23.0,
+        "HighBP": 1.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 10.0,
+        "BMI": 27.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 12.0,
+        "BMI": 27.0,
+        "HighBP": 0.0,
+        "HighChol": 1.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 9.0,
+        "BMI": 24.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 4.0,
+        "BMI": 36.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 1.0
+      },
+      {
+        "Age": 6.0,
+        "BMI": 28.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 3.0,
+        "BMI": 95.0,
+        "HighBP": 0.0,
+        "HighChol": 1.0,
+        "GenHlth": 1.0
+      },
+      {
+        "Age": 5.0,
+        "BMI": 28.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 7.0,
+        "BMI": 31.0,
+        "HighBP": 0.0,
+        "HighChol": 1.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 1.0,
+        "BMI": 25.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 6.0,
+        "BMI": 35.0,
+        "HighBP": 1.0,
+        "HighChol": 0.0,
+        "GenHlth": 4.0
+      },
+      {
+        "Age": 9.0,
+        "BMI": 39.0,
+        "HighBP": 1.0,
+        "HighChol": 0.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 10.0,
+        "BMI": 28.0,
+        "HighBP": 0.0,
+        "HighChol": 1.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 2.0,
+        "BMI": 26.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 4.0,
+        "BMI": 24.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 1.0
+      },
+      {
+        "Age": 4.0,
+        "BMI": 26.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 1.0
+      },
+      {
+        "Age": 10.0,
+        "BMI": 22.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 4.0
+      },
+      {
+        "Age": 8.0,
+        "BMI": 21.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 12.0,
+        "BMI": 32.0,
+        "HighBP": 1.0,
+        "HighChol": 0.0,
+        "GenHlth": 1.0
+      },
+      {
+        "Age": 13.0,
+        "BMI": 27.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 7.0,
+        "BMI": 30.0,
+        "HighBP": 1.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 6.0,
+        "BMI": 27.0,
+        "HighBP": 1.0,
+        "HighChol": 0.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 9.0,
+        "BMI": 40.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 4.0,
+        "BMI": 23.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 1.0
+      },
+      {
+        "Age": 7.0,
+        "BMI": 27.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 10.0,
+        "BMI": 33.0,
+        "HighBP": 1.0,
+        "HighChol": 0.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 9.0,
+        "BMI": 31.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 11.0,
+        "BMI": 22.0,
+        "HighBP": 0.0,
+        "HighChol": 1.0,
+        "GenHlth": 4.0
+      },
+      {
+        "Age": 13.0,
+        "BMI": 29.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 9.0,
+        "BMI": 25.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 4.0
+      },
+      {
+        "Age": 10.0,
+        "BMI": 25.0,
+        "HighBP": 0.0,
+        "HighChol": 1.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 9.0,
+        "BMI": 25.0,
+        "HighBP": 0.0,
+        "HighChol": 1.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 4.0,
+        "BMI": 45.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 3.0,
+        "BMI": 32.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 13.0,
+        "BMI": 21.0,
+        "HighBP": 1.0,
+        "HighChol": 0.0,
+        "GenHlth": 1.0
+      },
+      {
+        "Age": 10.0,
+        "BMI": 35.0,
+        "HighBP": 0.0,
+        "HighChol": 1.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 5.0,
+        "BMI": 34.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 6.0,
+        "BMI": 24.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 3.0,
+        "BMI": 35.0,
+        "HighBP": 1.0,
+        "HighChol": 0.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 10.0,
+        "BMI": 29.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 7.0,
+        "BMI": 30.0,
+        "HighBP": 0.0,
+        "HighChol": 1.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 11.0,
+        "BMI": 35.0,
+        "HighBP": 1.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 6.0,
+        "BMI": 25.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 11.0,
+        "BMI": 32.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 9.0,
+        "BMI": 26.0,
+        "HighBP": 0.0,
+        "HighChol": 1.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 9.0,
+        "BMI": 39.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 3.0,
+        "BMI": 25.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 1.0
+      },
+      {
+        "Age": 8.0,
+        "BMI": 22.0,
+        "HighBP": 1.0,
+        "HighChol": 0.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 5.0,
+        "BMI": 29.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 4.0
+      },
+      {
+        "Age": 10.0,
+        "BMI": 27.0,
+        "HighBP": 1.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 6.0,
+        "BMI": 25.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 4.0,
+        "BMI": 27.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 13.0,
+        "BMI": 20.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 4.0
+      },
+      {
+        "Age": 13.0,
+        "BMI": 26.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 4.0
+      },
+      {
+        "Age": 5.0,
+        "BMI": 24.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 5.0,
+        "BMI": 29.0,
+        "HighBP": 1.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 6.0,
+        "BMI": 24.0,
+        "HighBP": 1.0,
+        "HighChol": 0.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 3.0,
+        "BMI": 27.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 1.0
+      },
+      {
+        "Age": 7.0,
+        "BMI": 30.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 4.0
+      },
+      {
+        "Age": 8.0,
+        "BMI": 32.0,
+        "HighBP": 0.0,
+        "HighChol": 1.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 13.0,
+        "BMI": 22.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 5.0,
+        "BMI": 24.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 1.0
+      },
+      {
+        "Age": 9.0,
+        "BMI": 32.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 5.0
+      },
+      {
+        "Age": 8.0,
+        "BMI": 28.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 11.0,
+        "BMI": 32.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 4.0
+      },
+      {
+        "Age": 8.0,
+        "BMI": 24.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 1.0
+      },
+      {
+        "Age": 13.0,
+        "BMI": 24.0,
+        "HighBP": 1.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 1.0,
+        "BMI": 37.0,
+        "HighBP": 0.0,
+        "HighChol": 1.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 9.0,
+        "BMI": 37.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 3.0,
+        "BMI": 19.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 1.0
+      },
+      {
+        "Age": 4.0,
+        "BMI": 25.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 1.0
+      },
+      {
+        "Age": 9.0,
+        "BMI": 22.0,
+        "HighBP": 0.0,
+        "HighChol": 1.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 10.0,
+        "BMI": 28.0,
+        "HighBP": 0.0,
+        "HighChol": 1.0,
+        "GenHlth": 1.0
+      },
+      {
+        "Age": 8.0,
+        "BMI": 34.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 13.0,
+        "BMI": 26.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 13.0,
+        "BMI": 27.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 13.0,
+        "BMI": 22.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 5.0,
+        "BMI": 22.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 1.0
+      },
+      {
+        "Age": 5.0,
+        "BMI": 23.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 9.0,
+        "BMI": 23.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 1.0
+      },
+      {
+        "Age": 9.0,
+        "BMI": 32.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 11.0,
+        "BMI": 30.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 10.0,
+        "BMI": 24.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 1.0
+      },
+      {
+        "Age": 2.0,
+        "BMI": 26.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 8.0,
+        "BMI": 33.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 4.0,
+        "BMI": 20.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 9.0,
+        "BMI": 33.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 4.0,
+        "BMI": 28.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 1.0,
+        "BMI": 28.0,
+        "HighBP": 0.0,
+        "HighChol": 1.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 8.0,
+        "BMI": 44.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 2.0,
+        "BMI": 23.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 13.0,
+        "BMI": 28.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 7.0,
+        "BMI": 51.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 4.0
+      },
+      {
+        "Age": 11.0,
+        "BMI": 31.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 13.0,
+        "BMI": 28.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 1.0
+      },
+      {
+        "Age": 11.0,
+        "BMI": 25.0,
+        "HighBP": 0.0,
+        "HighChol": 1.0,
+        "GenHlth": 4.0
+      },
+      {
+        "Age": 11.0,
+        "BMI": 39.0,
+        "HighBP": 1.0,
+        "HighChol": 0.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 5.0,
+        "BMI": 31.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 4.0
+      },
+      {
+        "Age": 1.0,
+        "BMI": 27.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 2.0,
+        "BMI": 26.0,
+        "HighBP": 0.0,
+        "HighChol": 1.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 9.0,
+        "BMI": 31.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 13.0,
+        "BMI": 30.0,
+        "HighBP": 1.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 8.0,
+        "BMI": 25.0,
+        "HighBP": 1.0,
+        "HighChol": 0.0,
+        "GenHlth": 5.0
+      },
+      {
+        "Age": 4.0,
+        "BMI": 29.0,
+        "HighBP": 0.0,
+        "HighChol": 1.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 10.0,
+        "BMI": 37.0,
+        "HighBP": 1.0,
+        "HighChol": 0.0,
+        "GenHlth": 4.0
+      },
+      {
+        "Age": 8.0,
+        "BMI": 36.0,
+        "HighBP": 0.0,
+        "HighChol": 1.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 8.0,
+        "BMI": 30.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 3.0,
+        "BMI": 31.0,
+        "HighBP": 1.0,
+        "HighChol": 0.0,
+        "GenHlth": 1.0
+      },
+      {
+        "Age": 11.0,
+        "BMI": 26.0,
+        "HighBP": 0.0,
+        "HighChol": 1.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 9.0,
+        "BMI": 24.0,
+        "HighBP": 1.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 8.0,
+        "BMI": 27.0,
+        "HighBP": 1.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 11.0,
+        "BMI": 31.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 13.0,
+        "BMI": 27.0,
+        "HighBP": 1.0,
+        "HighChol": 0.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 4.0,
+        "BMI": 23.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 3.0,
+        "BMI": 26.0,
+        "HighBP": 1.0,
+        "HighChol": 0.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 10.0,
+        "BMI": 25.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 1.0
+      },
+      {
+        "Age": 13.0,
+        "BMI": 28.0,
+        "HighBP": 1.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 9.0,
+        "BMI": 32.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 5.0
+      },
+      {
+        "Age": 13.0,
+        "BMI": 22.0,
+        "HighBP": 1.0,
+        "HighChol": 0.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 12.0,
+        "BMI": 22.0,
+        "HighBP": 0.0,
+        "HighChol": 1.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 9.0,
+        "BMI": 39.0,
+        "HighBP": 1.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 4.0,
+        "BMI": 24.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 1.0
+      },
+      {
+        "Age": 4.0,
+        "BMI": 21.0,
+        "HighBP": 0.0,
+        "HighChol": 1.0,
+        "GenHlth": 1.0
+      },
+      {
+        "Age": 10.0,
+        "BMI": 22.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 7.0,
+        "BMI": 27.0,
+        "HighBP": 0.0,
+        "HighChol": 1.0,
+        "GenHlth": 1.0
+      },
+      {
+        "Age": 9.0,
+        "BMI": 21.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 4.0
+      },
+      {
+        "Age": 9.0,
+        "BMI": 29.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 4.0
+      },
+      {
+        "Age": 8.0,
+        "BMI": 22.0,
+        "HighBP": 1.0,
+        "HighChol": 0.0,
+        "GenHlth": 1.0
+      },
+      {
+        "Age": 10.0,
+        "BMI": 28.0,
+        "HighBP": 0.0,
+        "HighChol": 1.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 5.0,
+        "BMI": 28.0,
+        "HighBP": 1.0,
+        "HighChol": 0.0,
+        "GenHlth": 1.0
+      },
+      {
+        "Age": 13.0,
+        "BMI": 25.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 9.0,
+        "BMI": 23.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 10.0,
+        "BMI": 26.0,
+        "HighBP": 1.0,
+        "HighChol": 0.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 8.0,
+        "BMI": 23.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 8.0,
+        "BMI": 30.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 5.0
+      },
+      {
+        "Age": 12.0,
+        "BMI": 28.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 10.0,
+        "BMI": 23.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 7.0,
+        "BMI": 30.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 4.0
+      },
+      {
+        "Age": 9.0,
+        "BMI": 17.0,
+        "HighBP": 0.0,
+        "HighChol": 1.0,
+        "GenHlth": 4.0
+      },
+      {
+        "Age": 8.0,
+        "BMI": 37.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 9.0,
+        "BMI": 27.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 8.0,
+        "BMI": 26.0,
+        "HighBP": 1.0,
+        "HighChol": 0.0,
+        "GenHlth": 1.0
+      },
+      {
+        "Age": 13.0,
+        "BMI": 19.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 10.0,
+        "BMI": 33.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 7.0,
+        "BMI": 30.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 4.0
+      },
+      {
+        "Age": 5.0,
+        "BMI": 26.0,
+        "HighBP": 1.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 8.0,
+        "BMI": 32.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 13.0,
+        "BMI": 27.0,
+        "HighBP": 0.0,
+        "HighChol": 1.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 9.0,
+        "BMI": 34.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 4.0
+      },
+      {
+        "Age": 6.0,
+        "BMI": 21.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 1.0
+      },
+      {
+        "Age": 10.0,
+        "BMI": 25.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 13.0,
+        "BMI": 32.0,
+        "HighBP": 1.0,
+        "HighChol": 0.0,
+        "GenHlth": 4.0
+      },
+      {
+        "Age": 5.0,
+        "BMI": 21.0,
+        "HighBP": 0.0,
+        "HighChol": 1.0,
+        "GenHlth": 4.0
+      },
+      {
+        "Age": 8.0,
+        "BMI": 19.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 1.0
+      },
+      {
+        "Age": 10.0,
+        "BMI": 23.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 8.0,
+        "BMI": 27.0,
+        "HighBP": 1.0,
+        "HighChol": 0.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 12.0,
+        "BMI": 26.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 4.0
+      },
+      {
+        "Age": 10.0,
+        "BMI": 48.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 7.0,
+        "BMI": 28.0,
+        "HighBP": 0.0,
+        "HighChol": 1.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 13.0,
+        "BMI": 22.0,
+        "HighBP": 1.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 4.0,
+        "BMI": 21.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 10.0,
+        "BMI": 30.0,
+        "HighBP": 0.0,
+        "HighChol": 1.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 7.0,
+        "BMI": 22.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 4.0
+      },
+      {
+        "Age": 7.0,
+        "BMI": 28.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 3.0,
+        "BMI": 32.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 3.0,
+        "BMI": 23.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 1.0
+      },
+      {
+        "Age": 5.0,
+        "BMI": 20.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 10.0,
+        "BMI": 28.0,
+        "HighBP": 0.0,
+        "HighChol": 1.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 9.0,
+        "BMI": 28.0,
+        "HighBP": 1.0,
+        "HighChol": 0.0,
+        "GenHlth": 4.0
+      },
+      {
+        "Age": 8.0,
+        "BMI": 27.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 11.0,
+        "BMI": 24.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 5.0
+      },
+      {
+        "Age": 12.0,
+        "BMI": 34.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 4.0
+      },
+      {
+        "Age": 5.0,
+        "BMI": 35.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 9.0,
+        "BMI": 24.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 1.0
+      },
+      {
+        "Age": 12.0,
+        "BMI": 23.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 7.0,
+        "BMI": 27.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 12.0,
+        "BMI": 21.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 8.0,
+        "BMI": 36.0,
+        "HighBP": 0.0,
+        "HighChol": 1.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 10.0,
+        "BMI": 26.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 4.0,
+        "BMI": 22.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 9.0,
+        "BMI": 27.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 6.0,
+        "BMI": 23.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 6.0,
+        "BMI": 25.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 9.0,
+        "BMI": 29.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 9.0,
+        "BMI": 29.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 1.0
+      },
+      {
+        "Age": 3.0,
+        "BMI": 33.0,
+        "HighBP": 0.0,
+        "HighChol": 1.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 5.0,
+        "BMI": 23.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 1.0
+      },
+      {
+        "Age": 7.0,
+        "BMI": 24.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 9.0,
+        "BMI": 32.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 1.0,
+        "BMI": 21.0,
+        "HighBP": 1.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 8.0,
+        "BMI": 28.0,
+        "HighBP": 1.0,
+        "HighChol": 0.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 10.0,
+        "BMI": 31.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 7.0,
+        "BMI": 24.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 1.0
+      },
+      {
+        "Age": 8.0,
+        "BMI": 21.0,
+        "HighBP": 1.0,
+        "HighChol": 0.0,
+        "GenHlth": 4.0
+      },
+      {
+        "Age": 9.0,
+        "BMI": 24.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 5.0,
+        "BMI": 29.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 1.0
+      },
+      {
+        "Age": 6.0,
+        "BMI": 39.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 10.0,
+        "BMI": 24.0,
+        "HighBP": 1.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 6.0,
+        "BMI": 25.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 11.0,
+        "BMI": 21.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 6.0,
+        "BMI": 35.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 13.0,
+        "BMI": 24.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 9.0,
+        "BMI": 25.0,
+        "HighBP": 0.0,
+        "HighChol": 1.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 13.0,
+        "BMI": 24.0,
+        "HighBP": 0.0,
+        "HighChol": 1.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 7.0,
+        "BMI": 23.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 1.0
+      },
+      {
+        "Age": 10.0,
+        "BMI": 26.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 9.0,
+        "BMI": 21.0,
+        "HighBP": 1.0,
+        "HighChol": 0.0,
+        "GenHlth": 4.0
+      },
+      {
+        "Age": 8.0,
+        "BMI": 26.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 4.0,
+        "BMI": 29.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 7.0,
+        "BMI": 26.0,
+        "HighBP": 1.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 8.0,
+        "BMI": 26.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 12.0,
+        "BMI": 36.0,
+        "HighBP": 1.0,
+        "HighChol": 0.0,
+        "GenHlth": 5.0
+      },
+      {
+        "Age": 13.0,
+        "BMI": 25.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 4.0
+      },
+      {
+        "Age": 4.0,
+        "BMI": 26.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 5.0,
+        "BMI": 27.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 7.0,
+        "BMI": 24.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 10.0,
+        "BMI": 29.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 11.0,
+        "BMI": 27.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 13.0,
+        "BMI": 27.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 5.0,
+        "BMI": 25.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 10.0,
+        "BMI": 20.0,
+        "HighBP": 0.0,
+        "HighChol": 1.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 3.0,
+        "BMI": 33.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 13.0,
+        "BMI": 20.0,
+        "HighBP": 1.0,
+        "HighChol": 0.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 10.0,
+        "BMI": 37.0,
+        "HighBP": 0.0,
+        "HighChol": 1.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 10.0,
+        "BMI": 25.0,
+        "HighBP": 0.0,
+        "HighChol": 1.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 8.0,
+        "BMI": 26.0,
+        "HighBP": 1.0,
+        "HighChol": 0.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 5.0,
+        "BMI": 29.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 8.0,
+        "BMI": 25.0,
+        "HighBP": 1.0,
+        "HighChol": 0.0,
+        "GenHlth": 4.0
+      },
+      {
+        "Age": 11.0,
+        "BMI": 32.0,
+        "HighBP": 1.0,
+        "HighChol": 0.0,
+        "GenHlth": 4.0
+      },
+      {
+        "Age": 12.0,
+        "BMI": 29.0,
+        "HighBP": 1.0,
+        "HighChol": 0.0,
+        "GenHlth": 5.0
+      },
+      {
+        "Age": 7.0,
+        "BMI": 27.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 9.0,
+        "BMI": 27.0,
+        "HighBP": 0.0,
+        "HighChol": 1.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 13.0,
+        "BMI": 23.0,
+        "HighBP": 0.0,
+        "HighChol": 1.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 10.0,
+        "BMI": 24.0,
+        "HighBP": 0.0,
+        "HighChol": 1.0,
+        "GenHlth": 1.0
+      },
+      {
+        "Age": 6.0,
+        "BMI": 27.0,
+        "HighBP": 1.0,
+        "HighChol": 0.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 7.0,
+        "BMI": 24.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 6.0,
+        "BMI": 24.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 6.0,
+        "BMI": 27.0,
+        "HighBP": 1.0,
+        "HighChol": 0.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 6.0,
+        "BMI": 53.0,
+        "HighBP": 1.0,
+        "HighChol": 0.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 9.0,
+        "BMI": 33.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 5.0
+      },
+      {
+        "Age": 7.0,
+        "BMI": 33.0,
+        "HighBP": 1.0,
+        "HighChol": 0.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 10.0,
+        "BMI": 27.0,
+        "HighBP": 1.0,
+        "HighChol": 0.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 4.0,
+        "BMI": 22.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 7.0,
+        "BMI": 29.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 4.0
+      },
+      {
+        "Age": 2.0,
+        "BMI": 32.0,
+        "HighBP": 1.0,
+        "HighChol": 0.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 5.0,
+        "BMI": 22.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 4.0,
+        "BMI": 31.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 12.0,
+        "BMI": 40.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 5.0
+      },
+      {
+        "Age": 8.0,
+        "BMI": 28.0,
+        "HighBP": 0.0,
+        "HighChol": 1.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 8.0,
+        "BMI": 21.0,
+        "HighBP": 0.0,
+        "HighChol": 1.0,
+        "GenHlth": 1.0
+      },
+      {
+        "Age": 10.0,
+        "BMI": 36.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 5.0
+      },
+      {
+        "Age": 10.0,
+        "BMI": 28.0,
+        "HighBP": 0.0,
+        "HighChol": 1.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 13.0,
+        "BMI": 22.0,
+        "HighBP": 1.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 7.0,
+        "BMI": 33.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 10.0,
+        "BMI": 29.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 8.0,
+        "BMI": 23.0,
+        "HighBP": 0.0,
+        "HighChol": 1.0,
+        "GenHlth": 4.0
+      },
+      {
+        "Age": 7.0,
+        "BMI": 27.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 6.0,
+        "BMI": 31.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 13.0,
+        "BMI": 28.0,
+        "HighBP": 1.0,
+        "HighChol": 0.0,
+        "GenHlth": 1.0
+      },
+      {
+        "Age": 9.0,
+        "BMI": 32.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 1.0
+      },
+      {
+        "Age": 4.0,
+        "BMI": 26.0,
+        "HighBP": 0.0,
+        "HighChol": 1.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 8.0,
+        "BMI": 27.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 4.0
+      },
+      {
+        "Age": 11.0,
+        "BMI": 33.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 6.0,
+        "BMI": 23.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 1.0
+      },
+      {
+        "Age": 5.0,
+        "BMI": 28.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 6.0,
+        "BMI": 25.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 1.0
+      },
+      {
+        "Age": 7.0,
+        "BMI": 43.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 4.0
+      },
+      {
+        "Age": 7.0,
+        "BMI": 26.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 1.0
+      },
+      {
+        "Age": 9.0,
+        "BMI": 37.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 4.0
+      },
+      {
+        "Age": 12.0,
+        "BMI": 28.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 1.0
+      },
+      {
+        "Age": 6.0,
+        "BMI": 24.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 9.0,
+        "BMI": 23.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 1.0
+      },
+      {
+        "Age": 9.0,
+        "BMI": 25.0,
+        "HighBP": 1.0,
+        "HighChol": 0.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 11.0,
+        "BMI": 23.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 1.0
+      },
+      {
+        "Age": 4.0,
+        "BMI": 32.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 2.0,
+        "BMI": 27.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 5.0,
+        "BMI": 34.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 8.0,
+        "BMI": 26.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 12.0,
+        "BMI": 33.0,
+        "HighBP": 1.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 8.0,
+        "BMI": 23.0,
+        "HighBP": 0.0,
+        "HighChol": 1.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 3.0,
+        "BMI": 26.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 5.0,
+        "BMI": 29.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 1.0
+      },
+      {
+        "Age": 7.0,
+        "BMI": 26.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 4.0
+      },
+      {
+        "Age": 7.0,
+        "BMI": 39.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 10.0,
+        "BMI": 24.0,
+        "HighBP": 1.0,
+        "HighChol": 0.0,
+        "GenHlth": 5.0
+      },
+      {
+        "Age": 12.0,
+        "BMI": 22.0,
+        "HighBP": 0.0,
+        "HighChol": 1.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 11.0,
+        "BMI": 30.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 2.0,
+        "BMI": 28.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 11.0,
+        "BMI": 30.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 5.0,
+        "BMI": 20.0,
+        "HighBP": 0.0,
+        "HighChol": 1.0,
+        "GenHlth": 1.0
+      },
+      {
+        "Age": 4.0,
+        "BMI": 26.0,
+        "HighBP": 0.0,
+        "HighChol": 1.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 11.0,
+        "BMI": 27.0,
+        "HighBP": 1.0,
+        "HighChol": 0.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 6.0,
+        "BMI": 32.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 9.0,
+        "BMI": 29.0,
+        "HighBP": 1.0,
+        "HighChol": 0.0,
+        "GenHlth": 1.0
+      },
+      {
+        "Age": 4.0,
+        "BMI": 27.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 11.0,
+        "BMI": 26.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 13.0,
+        "BMI": 21.0,
+        "HighBP": 1.0,
+        "HighChol": 0.0,
+        "GenHlth": 4.0
+      },
+      {
+        "Age": 10.0,
+        "BMI": 31.0,
+        "HighBP": 1.0,
+        "HighChol": 0.0,
+        "GenHlth": 1.0
+      },
+      {
+        "Age": 2.0,
+        "BMI": 37.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 13.0,
+        "BMI": 23.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 6.0,
+        "BMI": 28.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 1.0
+      },
+      {
+        "Age": 4.0,
+        "BMI": 24.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 7.0,
+        "BMI": 23.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 1.0
+      },
+      {
+        "Age": 4.0,
+        "BMI": 22.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 4.0
+      },
+      {
+        "Age": 9.0,
+        "BMI": 40.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 10.0,
+        "BMI": 27.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 4.0
+      },
+      {
+        "Age": 13.0,
+        "BMI": 25.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 10.0,
+        "BMI": 24.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 9.0,
+        "BMI": 25.0,
+        "HighBP": 0.0,
+        "HighChol": 1.0,
+        "GenHlth": 1.0
+      },
+      {
+        "Age": 11.0,
+        "BMI": 28.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 12.0,
+        "BMI": 34.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 13.0,
+        "BMI": 29.0,
+        "HighBP": 1.0,
+        "HighChol": 0.0,
+        "GenHlth": 1.0
+      },
+      {
+        "Age": 9.0,
+        "BMI": 24.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 9.0,
+        "BMI": 22.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 1.0
+      },
+      {
+        "Age": 6.0,
+        "BMI": 25.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 10.0,
+        "BMI": 28.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 1.0
+      },
+      {
+        "Age": 7.0,
+        "BMI": 31.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 1.0
+      },
+      {
+        "Age": 2.0,
+        "BMI": 24.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 1.0
+      },
+      {
+        "Age": 8.0,
+        "BMI": 27.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 9.0,
+        "BMI": 25.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 13.0,
+        "BMI": 23.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 6.0,
+        "BMI": 22.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 1.0
+      },
+      {
+        "Age": 10.0,
+        "BMI": 29.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 1.0,
+        "BMI": 41.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 7.0,
+        "BMI": 27.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 1.0
+      },
+      {
+        "Age": 8.0,
+        "BMI": 44.0,
+        "HighBP": 1.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 5.0,
+        "BMI": 41.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 8.0,
+        "BMI": 25.0,
+        "HighBP": 0.0,
+        "HighChol": 1.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 4.0,
+        "BMI": 28.0,
+        "HighBP": 0.0,
+        "HighChol": 1.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 9.0,
+        "BMI": 25.0,
+        "HighBP": 1.0,
+        "HighChol": 0.0,
+        "GenHlth": 4.0
+      },
+      {
+        "Age": 11.0,
+        "BMI": 25.0,
+        "HighBP": 0.0,
+        "HighChol": 1.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 7.0,
+        "BMI": 21.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 1.0
+      },
+      {
+        "Age": 13.0,
+        "BMI": 26.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 1.0
+      },
+      {
+        "Age": 10.0,
+        "BMI": 28.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 9.0,
+        "BMI": 21.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 9.0,
+        "BMI": 20.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 10.0,
+        "BMI": 20.0,
+        "HighBP": 0.0,
+        "HighChol": 1.0,
+        "GenHlth": 5.0
+      },
+      {
+        "Age": 12.0,
+        "BMI": 21.0,
+        "HighBP": 1.0,
+        "HighChol": 0.0,
+        "GenHlth": 1.0
+      },
+      {
+        "Age": 6.0,
+        "BMI": 24.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 8.0,
+        "BMI": 30.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 7.0,
+        "BMI": 33.0,
+        "HighBP": 1.0,
+        "HighChol": 0.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 9.0,
+        "BMI": 36.0,
+        "HighBP": 0.0,
+        "HighChol": 1.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 7.0,
+        "BMI": 28.0,
+        "HighBP": 1.0,
+        "HighChol": 0.0,
+        "GenHlth": 1.0
+      },
+      {
+        "Age": 13.0,
+        "BMI": 22.0,
+        "HighBP": 1.0,
+        "HighChol": 0.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 10.0,
+        "BMI": 32.0,
+        "HighBP": 0.0,
+        "HighChol": 1.0,
+        "GenHlth": 5.0
+      },
+      {
+        "Age": 10.0,
+        "BMI": 29.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 5.0
+      },
+      {
+        "Age": 4.0,
+        "BMI": 26.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 3.0,
+        "BMI": 24.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 1.0
+      },
+      {
+        "Age": 9.0,
+        "BMI": 28.0,
+        "HighBP": 0.0,
+        "HighChol": 1.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 8.0,
+        "BMI": 38.0,
+        "HighBP": 0.0,
+        "HighChol": 1.0,
+        "GenHlth": 4.0
+      },
+      {
+        "Age": 6.0,
+        "BMI": 25.0,
+        "HighBP": 1.0,
+        "HighChol": 0.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 10.0,
+        "BMI": 31.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 12.0,
+        "BMI": 27.0,
+        "HighBP": 0.0,
+        "HighChol": 1.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 5.0,
+        "BMI": 24.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 1.0
+      },
+      {
+        "Age": 4.0,
+        "BMI": 41.0,
+        "HighBP": 1.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 7.0,
+        "BMI": 31.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 1.0
+      },
+      {
+        "Age": 13.0,
+        "BMI": 31.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 11.0,
+        "BMI": 32.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 10.0,
+        "BMI": 24.0,
+        "HighBP": 0.0,
+        "HighChol": 1.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 8.0,
+        "BMI": 32.0,
+        "HighBP": 0.0,
+        "HighChol": 1.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 8.0,
+        "BMI": 23.0,
+        "HighBP": 1.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 6.0,
+        "BMI": 28.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 7.0,
+        "BMI": 31.0,
+        "HighBP": 1.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 3.0,
+        "BMI": 29.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 4.0,
+        "BMI": 27.0,
+        "HighBP": 1.0,
+        "HighChol": 0.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 10.0,
+        "BMI": 33.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 9.0,
+        "BMI": 25.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 4.0
+      },
+      {
+        "Age": 8.0,
+        "BMI": 26.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 12.0,
+        "BMI": 22.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 1.0
+      },
+      {
+        "Age": 9.0,
+        "BMI": 28.0,
+        "HighBP": 0.0,
+        "HighChol": 1.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 2.0,
+        "BMI": 23.0,
+        "HighBP": 0.0,
+        "HighChol": 1.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 12.0,
+        "BMI": 26.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 8.0,
+        "BMI": 43.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 8.0,
+        "BMI": 25.0,
+        "HighBP": 0.0,
+        "HighChol": 1.0,
+        "GenHlth": 1.0
+      },
+      {
+        "Age": 9.0,
+        "BMI": 27.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 11.0,
+        "BMI": 37.0,
+        "HighBP": 0.0,
+        "HighChol": 1.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 13.0,
+        "BMI": 27.0,
+        "HighBP": 1.0,
+        "HighChol": 0.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 9.0,
+        "BMI": 23.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 9.0,
+        "BMI": 32.0,
+        "HighBP": 0.0,
+        "HighChol": 1.0,
+        "GenHlth": 1.0
+      },
+      {
+        "Age": 7.0,
+        "BMI": 27.0,
+        "HighBP": 1.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 6.0,
+        "BMI": 26.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 10.0,
+        "BMI": 37.0,
+        "HighBP": 1.0,
+        "HighChol": 0.0,
+        "GenHlth": 4.0
+      },
+      {
+        "Age": 10.0,
+        "BMI": 23.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 9.0,
+        "BMI": 23.0,
+        "HighBP": 1.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 11.0,
+        "BMI": 22.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 10.0,
+        "BMI": 27.0,
+        "HighBP": 1.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 8.0,
+        "BMI": 38.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 5.0,
+        "BMI": 27.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 8.0,
+        "BMI": 29.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 11.0,
+        "BMI": 28.0,
+        "HighBP": 0.0,
+        "HighChol": 1.0,
+        "GenHlth": 4.0
+      },
+      {
+        "Age": 10.0,
+        "BMI": 31.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 10.0,
+        "BMI": 31.0,
+        "HighBP": 1.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 10.0,
+        "BMI": 28.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 1.0
+      },
+      {
+        "Age": 9.0,
+        "BMI": 34.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 4.0
+      },
+      {
+        "Age": 5.0,
+        "BMI": 24.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 8.0,
+        "BMI": 29.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 12.0,
+        "BMI": 24.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 9.0,
+        "BMI": 28.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 9.0,
+        "BMI": 31.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 11.0,
+        "BMI": 29.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 10.0,
+        "BMI": 36.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 9.0,
+        "BMI": 23.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 5.0
+      },
+      {
+        "Age": 8.0,
+        "BMI": 35.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 11.0,
+        "BMI": 19.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 1.0
+      },
+      {
+        "Age": 9.0,
+        "BMI": 31.0,
+        "HighBP": 0.0,
+        "HighChol": 1.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 9.0,
+        "BMI": 47.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 10.0,
+        "BMI": 28.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 4.0
+      },
+      {
+        "Age": 8.0,
+        "BMI": 28.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 6.0,
+        "BMI": 26.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 8.0,
+        "BMI": 38.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 5.0
+      },
+      {
+        "Age": 7.0,
+        "BMI": 25.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 1.0
+      },
+      {
+        "Age": 3.0,
+        "BMI": 28.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 13.0,
+        "BMI": 24.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 5.0,
+        "BMI": 33.0,
+        "HighBP": 1.0,
+        "HighChol": 0.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 9.0,
+        "BMI": 29.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 1.0
+      },
+      {
+        "Age": 10.0,
+        "BMI": 23.0,
+        "HighBP": 1.0,
+        "HighChol": 0.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 10.0,
+        "BMI": 38.0,
+        "HighBP": 1.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 11.0,
+        "BMI": 31.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 7.0,
+        "BMI": 31.0,
+        "HighBP": 1.0,
+        "HighChol": 0.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 10.0,
+        "BMI": 36.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 10.0,
+        "BMI": 39.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 4.0,
+        "BMI": 23.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 13.0,
+        "BMI": 30.0,
+        "HighBP": 1.0,
+        "HighChol": 0.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 8.0,
+        "BMI": 29.0,
+        "HighBP": 1.0,
+        "HighChol": 0.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 9.0,
+        "BMI": 38.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 3.0,
+        "BMI": 31.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 8.0,
+        "BMI": 29.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 4.0,
+        "BMI": 28.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 6.0,
+        "BMI": 29.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 4.0,
+        "BMI": 33.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 2.0,
+        "BMI": 28.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 10.0,
+        "BMI": 23.0,
+        "HighBP": 0.0,
+        "HighChol": 1.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 6.0,
+        "BMI": 32.0,
+        "HighBP": 1.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 2.0,
+        "BMI": 24.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 1.0
+      },
+      {
+        "Age": 6.0,
+        "BMI": 35.0,
+        "HighBP": 0.0,
+        "HighChol": 1.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 6.0,
+        "BMI": 23.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 5.0,
+        "BMI": 21.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 8.0,
+        "BMI": 33.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 4.0,
+        "BMI": 22.0,
+        "HighBP": 0.0,
+        "HighChol": 1.0,
+        "GenHlth": 4.0
+      },
+      {
+        "Age": 9.0,
+        "BMI": 24.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 8.0,
+        "BMI": 31.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 9.0,
+        "BMI": 18.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 7.0,
+        "BMI": 30.0,
+        "HighBP": 1.0,
+        "HighChol": 0.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 10.0,
+        "BMI": 23.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 5.0
+      },
+      {
+        "Age": 5.0,
+        "BMI": 26.0,
+        "HighBP": 0.0,
+        "HighChol": 1.0,
+        "GenHlth": 1.0
+      },
+      {
+        "Age": 11.0,
+        "BMI": 27.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 9.0,
+        "BMI": 24.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 1.0
+      },
+      {
+        "Age": 12.0,
+        "BMI": 24.0,
+        "HighBP": 0.0,
+        "HighChol": 1.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 5.0,
+        "BMI": 22.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 1.0
+      },
+      {
+        "Age": 5.0,
+        "BMI": 30.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 1.0
+      },
+      {
+        "Age": 10.0,
+        "BMI": 20.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 5.0,
+        "BMI": 26.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 4.0,
+        "BMI": 32.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 5.0,
+        "BMI": 29.0,
+        "HighBP": 0.0,
+        "HighChol": 1.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 7.0,
+        "BMI": 25.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 1.0
+      },
+      {
+        "Age": 11.0,
+        "BMI": 28.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 13.0,
+        "BMI": 19.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 5.0
+      },
+      {
+        "Age": 3.0,
+        "BMI": 26.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 8.0,
+        "BMI": 26.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 5.0
+      },
+      {
+        "Age": 13.0,
+        "BMI": 24.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 13.0,
+        "BMI": 22.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 13.0,
+        "BMI": 28.0,
+        "HighBP": 0.0,
+        "HighChol": 1.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 8.0,
+        "BMI": 20.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 1.0
+      },
+      {
+        "Age": 6.0,
+        "BMI": 32.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 1.0
+      },
+      {
+        "Age": 12.0,
+        "BMI": 28.0,
+        "HighBP": 1.0,
+        "HighChol": 0.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 2.0,
+        "BMI": 21.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 6.0,
+        "BMI": 36.0,
+        "HighBP": 1.0,
+        "HighChol": 0.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 8.0,
+        "BMI": 33.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 4.0
+      },
+      {
+        "Age": 11.0,
+        "BMI": 32.0,
+        "HighBP": 0.0,
+        "HighChol": 1.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 2.0,
+        "BMI": 28.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 8.0,
+        "BMI": 29.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 7.0,
+        "BMI": 30.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 1.0
+      },
+      {
+        "Age": 2.0,
+        "BMI": 27.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 5.0,
+        "BMI": 32.0,
+        "HighBP": 0.0,
+        "HighChol": 1.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 3.0,
+        "BMI": 26.0,
+        "HighBP": 1.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 7.0,
+        "BMI": 24.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 1.0
+      },
+      {
+        "Age": 6.0,
+        "BMI": 37.0,
+        "HighBP": 1.0,
+        "HighChol": 0.0,
+        "GenHlth": 4.0
+      },
+      {
+        "Age": 11.0,
+        "BMI": 27.0,
+        "HighBP": 0.0,
+        "HighChol": 1.0,
+        "GenHlth": 5.0
+      },
+      {
+        "Age": 11.0,
+        "BMI": 31.0,
+        "HighBP": 1.0,
+        "HighChol": 0.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 5.0,
+        "BMI": 25.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 6.0,
+        "BMI": 19.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 1.0
+      },
+      {
+        "Age": 10.0,
+        "BMI": 26.0,
+        "HighBP": 0.0,
+        "HighChol": 1.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 10.0,
+        "BMI": 19.0,
+        "HighBP": 1.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 9.0,
+        "BMI": 29.0,
+        "HighBP": 0.0,
+        "HighChol": 1.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 4.0,
+        "BMI": 31.0,
+        "HighBP": 1.0,
+        "HighChol": 0.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 10.0,
+        "BMI": 26.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 1.0
+      },
+      {
+        "Age": 10.0,
+        "BMI": 44.0,
+        "HighBP": 0.0,
+        "HighChol": 1.0,
+        "GenHlth": 4.0
+      },
+      {
+        "Age": 8.0,
+        "BMI": 32.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 1.0
+      },
+      {
+        "Age": 8.0,
+        "BMI": 38.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 11.0,
+        "BMI": 22.0,
+        "HighBP": 0.0,
+        "HighChol": 1.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 10.0,
+        "BMI": 30.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 4.0
+      },
+      {
+        "Age": 9.0,
+        "BMI": 37.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 5.0
+      },
+      {
+        "Age": 4.0,
+        "BMI": 27.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 1.0
+      },
+      {
+        "Age": 11.0,
+        "BMI": 42.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 4.0
+      },
+      {
+        "Age": 8.0,
+        "BMI": 29.0,
+        "HighBP": 1.0,
+        "HighChol": 0.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 9.0,
+        "BMI": 29.0,
+        "HighBP": 1.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 11.0,
+        "BMI": 25.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 9.0,
+        "BMI": 47.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 4.0
+      },
+      {
+        "Age": 10.0,
+        "BMI": 30.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 8.0,
+        "BMI": 32.0,
+        "HighBP": 1.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 11.0,
+        "BMI": 21.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 4.0
+      },
+      {
+        "Age": 13.0,
+        "BMI": 26.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 4.0,
+        "BMI": 28.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 1.0
+      },
+      {
+        "Age": 10.0,
+        "BMI": 29.0,
+        "HighBP": 0.0,
+        "HighChol": 1.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 12.0,
+        "BMI": 38.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 4.0,
+        "BMI": 30.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 11.0,
+        "BMI": 27.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 4.0
+      },
+      {
+        "Age": 11.0,
+        "BMI": 18.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 4.0
+      },
+      {
+        "Age": 11.0,
+        "BMI": 27.0,
+        "HighBP": 1.0,
+        "HighChol": 0.0,
+        "GenHlth": 4.0
+      },
+      {
+        "Age": 8.0,
+        "BMI": 35.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 1.0
+      },
+      {
+        "Age": 12.0,
+        "BMI": 23.0,
+        "HighBP": 1.0,
+        "HighChol": 0.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 12.0,
+        "BMI": 23.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 7.0,
+        "BMI": 36.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 4.0
+      },
+      {
+        "Age": 10.0,
+        "BMI": 28.0,
+        "HighBP": 0.0,
+        "HighChol": 1.0,
+        "GenHlth": 4.0
+      },
+      {
+        "Age": 4.0,
+        "BMI": 23.0,
+        "HighBP": 1.0,
+        "HighChol": 0.0,
+        "GenHlth": 1.0
+      },
+      {
+        "Age": 13.0,
+        "BMI": 24.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 11.0,
+        "BMI": 41.0,
+        "HighBP": 1.0,
+        "HighChol": 0.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 3.0,
+        "BMI": 24.0,
+        "HighBP": 0.0,
+        "HighChol": 1.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 10.0,
+        "BMI": 27.0,
+        "HighBP": 0.0,
+        "HighChol": 1.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 5.0,
+        "BMI": 27.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 12.0,
+        "BMI": 25.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 7.0,
+        "BMI": 20.0,
+        "HighBP": 1.0,
+        "HighChol": 0.0,
+        "GenHlth": 1.0
+      },
+      {
+        "Age": 9.0,
+        "BMI": 34.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 9.0,
+        "BMI": 24.0,
+        "HighBP": 0.0,
+        "HighChol": 1.0,
+        "GenHlth": 1.0
+      },
+      {
+        "Age": 13.0,
+        "BMI": 25.0,
+        "HighBP": 0.0,
+        "HighChol": 1.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 12.0,
+        "BMI": 37.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 5.0
+      },
+      {
+        "Age": 7.0,
+        "BMI": 27.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 13.0,
+        "BMI": 30.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 7.0,
+        "BMI": 33.0,
+        "HighBP": 1.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 9.0,
+        "BMI": 27.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 9.0,
+        "BMI": 31.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 1.0
+      },
+      {
+        "Age": 6.0,
+        "BMI": 32.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 5.0,
+        "BMI": 26.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 1.0
+      },
+      {
+        "Age": 13.0,
+        "BMI": 31.0,
+        "HighBP": 0.0,
+        "HighChol": 1.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 4.0,
+        "BMI": 24.0,
+        "HighBP": 0.0,
+        "HighChol": 1.0,
+        "GenHlth": 1.0
+      },
+      {
+        "Age": 4.0,
+        "BMI": 27.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 3.0,
+        "BMI": 22.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 1.0,
+        "BMI": 26.0,
+        "HighBP": 0.0,
+        "HighChol": 1.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 12.0,
+        "BMI": 32.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 4.0
+      },
+      {
+        "Age": 8.0,
+        "BMI": 32.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 7.0,
+        "BMI": 37.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 9.0,
+        "BMI": 24.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 9.0,
+        "BMI": 34.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 9.0,
+        "BMI": 28.0,
+        "HighBP": 1.0,
+        "HighChol": 0.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 6.0,
+        "BMI": 25.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 1.0
+      },
+      {
+        "Age": 10.0,
+        "BMI": 20.0,
+        "HighBP": 0.0,
+        "HighChol": 1.0,
+        "GenHlth": 1.0
+      },
+      {
+        "Age": 5.0,
+        "BMI": 33.0,
+        "HighBP": 0.0,
+        "HighChol": 1.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 7.0,
+        "BMI": 25.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 11.0,
+        "BMI": 29.0,
+        "HighBP": 1.0,
+        "HighChol": 0.0,
+        "GenHlth": 1.0
+      },
+      {
+        "Age": 10.0,
+        "BMI": 31.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 7.0,
+        "BMI": 26.0,
+        "HighBP": 0.0,
+        "HighChol": 1.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 9.0,
+        "BMI": 30.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 1.0
+      },
+      {
+        "Age": 1.0,
+        "BMI": 33.0,
+        "HighBP": 1.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 11.0,
+        "BMI": 30.0,
+        "HighBP": 1.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 8.0,
+        "BMI": 22.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 4.0
+      },
+      {
+        "Age": 7.0,
+        "BMI": 28.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 4.0
+      },
+      {
+        "Age": 10.0,
+        "BMI": 22.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 7.0,
+        "BMI": 18.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 1.0
+      },
+      {
+        "Age": 7.0,
+        "BMI": 22.0,
+        "HighBP": 0.0,
+        "HighChol": 1.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 8.0,
+        "BMI": 27.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 1.0
+      },
+      {
+        "Age": 4.0,
+        "BMI": 36.0,
+        "HighBP": 0.0,
+        "HighChol": 1.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 10.0,
+        "BMI": 25.0,
+        "HighBP": 0.0,
+        "HighChol": 1.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 11.0,
+        "BMI": 24.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 1.0
+      },
+      {
+        "Age": 7.0,
+        "BMI": 21.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 1.0
+      },
+      {
+        "Age": 9.0,
+        "BMI": 25.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 1.0
+      },
+      {
+        "Age": 13.0,
+        "BMI": 23.0,
+        "HighBP": 1.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 9.0,
+        "BMI": 28.0,
+        "HighBP": 1.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 6.0,
+        "BMI": 30.0,
+        "HighBP": 1.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 9.0,
+        "BMI": 28.0,
+        "HighBP": 0.0,
+        "HighChol": 1.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 3.0,
+        "BMI": 25.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 4.0,
+        "BMI": 35.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 1.0
+      },
+      {
+        "Age": 6.0,
+        "BMI": 23.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 1.0
+      },
+      {
+        "Age": 7.0,
+        "BMI": 27.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 12.0,
+        "BMI": 21.0,
+        "HighBP": 0.0,
+        "HighChol": 1.0,
+        "GenHlth": 1.0
+      },
+      {
+        "Age": 13.0,
+        "BMI": 32.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 9.0,
+        "BMI": 28.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 1.0
+      },
+      {
+        "Age": 13.0,
+        "BMI": 26.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 5.0
+      },
+      {
+        "Age": 9.0,
+        "BMI": 32.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 4.0,
+        "BMI": 25.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 1.0
+      },
+      {
+        "Age": 3.0,
+        "BMI": 31.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 4.0
+      },
+      {
+        "Age": 11.0,
+        "BMI": 27.0,
+        "HighBP": 1.0,
+        "HighChol": 0.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 12.0,
+        "BMI": 25.0,
+        "HighBP": 1.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 4.0,
+        "BMI": 26.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 7.0,
+        "BMI": 27.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 3.0,
+        "BMI": 26.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 4.0
+      },
+      {
+        "Age": 5.0,
+        "BMI": 22.0,
+        "HighBP": 0.0,
+        "HighChol": 1.0,
+        "GenHlth": 1.0
+      },
+      {
+        "Age": 12.0,
+        "BMI": 21.0,
+        "HighBP": 1.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 11.0,
+        "BMI": 28.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 8.0,
+        "BMI": 30.0,
+        "HighBP": 0.0,
+        "HighChol": 1.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 12.0,
+        "BMI": 23.0,
+        "HighBP": 1.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 13.0,
+        "BMI": 22.0,
+        "HighBP": 0.0,
+        "HighChol": 1.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 7.0,
+        "BMI": 27.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 1.0
+      },
+      {
+        "Age": 10.0,
+        "BMI": 32.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 6.0,
+        "BMI": 33.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 5.0,
+        "BMI": 22.0,
+        "HighBP": 0.0,
+        "HighChol": 1.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 10.0,
+        "BMI": 35.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 11.0,
+        "BMI": 29.0,
+        "HighBP": 1.0,
+        "HighChol": 0.0,
+        "GenHlth": 4.0
+      },
+      {
+        "Age": 6.0,
+        "BMI": 32.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 6.0,
+        "BMI": 21.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 10.0,
+        "BMI": 31.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 4.0
+      },
+      {
+        "Age": 12.0,
+        "BMI": 29.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 4.0
+      },
+      {
+        "Age": 8.0,
+        "BMI": 37.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 2.0,
+        "BMI": 28.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 1.0
+      },
+      {
+        "Age": 9.0,
+        "BMI": 28.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 10.0,
+        "BMI": 24.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 5.0
+      },
+      {
+        "Age": 8.0,
+        "BMI": 38.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 9.0,
+        "BMI": 21.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 2.0,
+        "BMI": 23.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 1.0
+      },
+      {
+        "Age": 7.0,
+        "BMI": 33.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 1.0
+      },
+      {
+        "Age": 6.0,
+        "BMI": 21.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 9.0,
+        "BMI": 28.0,
+        "HighBP": 0.0,
+        "HighChol": 1.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 11.0,
+        "BMI": 26.0,
+        "HighBP": 0.0,
+        "HighChol": 1.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 11.0,
+        "BMI": 16.0,
+        "HighBP": 1.0,
+        "HighChol": 0.0,
+        "GenHlth": 4.0
+      },
+      {
+        "Age": 12.0,
+        "BMI": 26.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 7.0,
+        "BMI": 22.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 1.0
+      },
+      {
+        "Age": 5.0,
+        "BMI": 39.0,
+        "HighBP": 0.0,
+        "HighChol": 1.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 13.0,
+        "BMI": 26.0,
+        "HighBP": 1.0,
+        "HighChol": 0.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 7.0,
+        "BMI": 42.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 10.0,
+        "BMI": 28.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 1.0,
+        "BMI": 22.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 4.0,
+        "BMI": 27.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 4.0
+      },
+      {
+        "Age": 13.0,
+        "BMI": 30.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 5.0
+      },
+      {
+        "Age": 7.0,
+        "BMI": 35.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 9.0,
+        "BMI": 24.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 4.0,
+        "BMI": 22.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 1.0
+      },
+      {
+        "Age": 11.0,
+        "BMI": 31.0,
+        "HighBP": 1.0,
+        "HighChol": 0.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 11.0,
+        "BMI": 27.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 6.0,
+        "BMI": 37.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 10.0,
+        "BMI": 25.0,
+        "HighBP": 1.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 4.0,
+        "BMI": 28.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 10.0,
+        "BMI": 27.0,
+        "HighBP": 0.0,
+        "HighChol": 1.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 2.0,
+        "BMI": 22.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 1.0
+      },
+      {
+        "Age": 9.0,
+        "BMI": 26.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 8.0,
+        "BMI": 33.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 6.0,
+        "BMI": 22.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 1.0
+      },
+      {
+        "Age": 9.0,
+        "BMI": 27.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 4.0
+      },
+      {
+        "Age": 9.0,
+        "BMI": 29.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 4.0
+      },
+      {
+        "Age": 11.0,
+        "BMI": 26.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 4.0
+      },
+      {
+        "Age": 4.0,
+        "BMI": 19.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 11.0,
+        "BMI": 49.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 9.0,
+        "BMI": 23.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 9.0,
+        "BMI": 42.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 4.0,
+        "BMI": 22.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 9.0,
+        "BMI": 26.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 4.0
+      },
+      {
+        "Age": 7.0,
+        "BMI": 39.0,
+        "HighBP": 1.0,
+        "HighChol": 0.0,
+        "GenHlth": 4.0
+      },
+      {
+        "Age": 2.0,
+        "BMI": 23.0,
+        "HighBP": 1.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 4.0,
+        "BMI": 30.0,
+        "HighBP": 0.0,
+        "HighChol": 1.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 9.0,
+        "BMI": 26.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 3.0,
+        "BMI": 43.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 4.0
+      },
+      {
+        "Age": 6.0,
+        "BMI": 35.0,
+        "HighBP": 0.0,
+        "HighChol": 1.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 10.0,
+        "BMI": 31.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 4.0
+      },
+      {
+        "Age": 5.0,
+        "BMI": 24.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 11.0,
+        "BMI": 30.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 11.0,
+        "BMI": 27.0,
+        "HighBP": 0.0,
+        "HighChol": 1.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 11.0,
+        "BMI": 26.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 7.0,
+        "BMI": 40.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 5.0
+      },
+      {
+        "Age": 7.0,
+        "BMI": 31.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 5.0
+      },
+      {
+        "Age": 5.0,
+        "BMI": 23.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 9.0,
+        "BMI": 31.0,
+        "HighBP": 1.0,
+        "HighChol": 0.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 7.0,
+        "BMI": 27.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 5.0,
+        "BMI": 28.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 10.0,
+        "BMI": 29.0,
+        "HighBP": 1.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 10.0,
+        "BMI": 33.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 6.0,
+        "BMI": 26.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 8.0,
+        "BMI": 27.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 1.0
+      },
+      {
+        "Age": 8.0,
+        "BMI": 37.0,
+        "HighBP": 0.0,
+        "HighChol": 1.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 11.0,
+        "BMI": 26.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 6.0,
+        "BMI": 27.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 1.0
+      },
+      {
+        "Age": 11.0,
+        "BMI": 25.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 5.0
+      },
+      {
+        "Age": 10.0,
+        "BMI": 29.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 3.0,
+        "BMI": 21.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 7.0,
+        "BMI": 38.0,
+        "HighBP": 0.0,
+        "HighChol": 1.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 4.0,
+        "BMI": 21.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 9.0,
+        "BMI": 29.0,
+        "HighBP": 0.0,
+        "HighChol": 1.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 5.0,
+        "BMI": 32.0,
+        "HighBP": 0.0,
+        "HighChol": 1.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 13.0,
+        "BMI": 22.0,
+        "HighBP": 1.0,
+        "HighChol": 0.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 9.0,
+        "BMI": 34.0,
+        "HighBP": 1.0,
+        "HighChol": 0.0,
+        "GenHlth": 4.0
+      },
+      {
+        "Age": 7.0,
+        "BMI": 41.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 6.0,
+        "BMI": 32.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 9.0,
+        "BMI": 33.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 3.0,
+        "BMI": 24.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 9.0,
+        "BMI": 35.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 13.0,
+        "BMI": 28.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 1.0
+      },
+      {
+        "Age": 12.0,
+        "BMI": 27.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 9.0,
+        "BMI": 25.0,
+        "HighBP": 1.0,
+        "HighChol": 0.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 3.0,
+        "BMI": 32.0,
+        "HighBP": 0.0,
+        "HighChol": 1.0,
+        "GenHlth": 4.0
+      },
+      {
+        "Age": 1.0,
+        "BMI": 24.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 7.0,
+        "BMI": 28.0,
+        "HighBP": 0.0,
+        "HighChol": 1.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 9.0,
+        "BMI": 32.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 4.0
+      },
+      {
+        "Age": 9.0,
+        "BMI": 41.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 7.0,
+        "BMI": 39.0,
+        "HighBP": 1.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 10.0,
+        "BMI": 29.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 5.0,
+        "BMI": 31.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 10.0,
+        "BMI": 28.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 8.0,
+        "BMI": 28.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 10.0,
+        "BMI": 27.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 4.0,
+        "BMI": 35.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 11.0,
+        "BMI": 23.0,
+        "HighBP": 0.0,
+        "HighChol": 1.0,
+        "GenHlth": 1.0
+      },
+      {
+        "Age": 5.0,
+        "BMI": 26.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 11.0,
+        "BMI": 26.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 4.0
+      },
+      {
+        "Age": 13.0,
+        "BMI": 22.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 4.0
+      },
+      {
+        "Age": 8.0,
+        "BMI": 30.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 9.0,
+        "BMI": 47.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 4.0,
+        "BMI": 31.0,
+        "HighBP": 1.0,
+        "HighChol": 0.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 12.0,
+        "BMI": 25.0,
+        "HighBP": 1.0,
+        "HighChol": 0.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 4.0,
+        "BMI": 26.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 1.0
+      },
+      {
+        "Age": 8.0,
+        "BMI": 40.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 12.0,
+        "BMI": 23.0,
+        "HighBP": 0.0,
+        "HighChol": 1.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 12.0,
+        "BMI": 29.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 13.0,
+        "BMI": 29.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 4.0
+      },
+      {
+        "Age": 8.0,
+        "BMI": 27.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 1.0
+      },
+      {
+        "Age": 8.0,
+        "BMI": 26.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 10.0,
+        "BMI": 31.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 6.0,
+        "BMI": 23.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 1.0
+      },
+      {
+        "Age": 12.0,
+        "BMI": 26.0,
+        "HighBP": 0.0,
+        "HighChol": 1.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 10.0,
+        "BMI": 29.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 4.0
+      },
+      {
+        "Age": 7.0,
+        "BMI": 23.0,
+        "HighBP": 0.0,
+        "HighChol": 1.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 3.0,
+        "BMI": 35.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 4.0
+      },
+      {
+        "Age": 5.0,
+        "BMI": 23.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 8.0,
+        "BMI": 17.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 8.0,
+        "BMI": 44.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 5.0
+      },
+      {
+        "Age": 13.0,
+        "BMI": 24.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 3.0,
+        "BMI": 31.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 9.0,
+        "BMI": 27.0,
+        "HighBP": 0.0,
+        "HighChol": 1.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 8.0,
+        "BMI": 24.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 8.0,
+        "BMI": 35.0,
+        "HighBP": 0.0,
+        "HighChol": 1.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 7.0,
+        "BMI": 32.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 8.0,
+        "BMI": 28.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 12.0,
+        "BMI": 31.0,
+        "HighBP": 1.0,
+        "HighChol": 0.0,
+        "GenHlth": 4.0
+      },
+      {
+        "Age": 10.0,
+        "BMI": 19.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 1.0
+      },
+      {
+        "Age": 13.0,
+        "BMI": 22.0,
+        "HighBP": 1.0,
+        "HighChol": 0.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 10.0,
+        "BMI": 23.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 9.0,
+        "BMI": 27.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 5.0
+      },
+      {
+        "Age": 10.0,
+        "BMI": 22.0,
+        "HighBP": 1.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 9.0,
+        "BMI": 21.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 1.0
+      },
+      {
+        "Age": 7.0,
+        "BMI": 34.0,
+        "HighBP": 1.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 6.0,
+        "BMI": 40.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 10.0,
+        "BMI": 29.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 4.0
+      },
+      {
+        "Age": 8.0,
+        "BMI": 19.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 1.0
+      },
+      {
+        "Age": 10.0,
+        "BMI": 37.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 4.0
+      },
+      {
+        "Age": 7.0,
+        "BMI": 28.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 9.0,
+        "BMI": 26.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 1.0
+      },
+      {
+        "Age": 13.0,
+        "BMI": 34.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 10.0,
+        "BMI": 29.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 1.0
+      },
+      {
+        "Age": 10.0,
+        "BMI": 27.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 4.0
+      },
+      {
+        "Age": 6.0,
+        "BMI": 37.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 4.0
+      },
+      {
+        "Age": 3.0,
+        "BMI": 20.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 1.0,
+        "BMI": 24.0,
+        "HighBP": 0.0,
+        "HighChol": 1.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 8.0,
+        "BMI": 27.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 10.0,
+        "BMI": 31.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 4.0,
+        "BMI": 30.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 4.0
+      },
+      {
+        "Age": 13.0,
+        "BMI": 21.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 8.0,
+        "BMI": 36.0,
+        "HighBP": 1.0,
+        "HighChol": 0.0,
+        "GenHlth": 5.0
+      },
+      {
+        "Age": 8.0,
+        "BMI": 27.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 1.0
+      },
+      {
+        "Age": 13.0,
+        "BMI": 26.0,
+        "HighBP": 1.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 6.0,
+        "BMI": 27.0,
+        "HighBP": 1.0,
+        "HighChol": 0.0,
+        "GenHlth": 4.0
+      },
+      {
+        "Age": 7.0,
+        "BMI": 21.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 1.0
+      },
+      {
+        "Age": 9.0,
+        "BMI": 28.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 12.0,
+        "BMI": 32.0,
+        "HighBP": 0.0,
+        "HighChol": 1.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 11.0,
+        "BMI": 24.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 4.0
+      },
+      {
+        "Age": 11.0,
+        "BMI": 32.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 3.0
+      },
+      {
+        "Age": 8.0,
+        "BMI": 22.0,
+        "HighBP": 0.0,
+        "HighChol": 1.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 8.0,
+        "BMI": 21.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 1.0
+      },
+      {
+        "Age": 6.0,
+        "BMI": 24.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 13.0,
+        "BMI": 30.0,
+        "HighBP": 1.0,
+        "HighChol": 1.0,
+        "GenHlth": 4.0
+      },
+      {
+        "Age": 7.0,
+        "BMI": 47.0,
+        "HighBP": 1.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 6.0,
+        "BMI": 71.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 11.0,
+        "BMI": 26.0,
+        "HighBP": 0.0,
+        "HighChol": 1.0,
+        "GenHlth": 4.0
+      },
+      {
+        "Age": 10.0,
+        "BMI": 22.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 1.0
+      },
+      {
+        "Age": 11.0,
+        "BMI": 20.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 1.0
+      },
+      {
+        "Age": 7.0,
+        "BMI": 25.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 1.0
+      },
+      {
+        "Age": 10.0,
+        "BMI": 24.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 9.0,
+        "BMI": 36.0,
+        "HighBP": 1.0,
+        "HighChol": 0.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 8.0,
+        "BMI": 22.0,
+        "HighBP": 0.0,
+        "HighChol": 1.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 10.0,
+        "BMI": 22.0,
+        "HighBP": 0.0,
+        "HighChol": 1.0,
+        "GenHlth": 2.0
+      },
+      {
+        "Age": 6.0,
+        "BMI": 22.0,
+        "HighBP": 0.0,
+        "HighChol": 0.0,
+        "GenHlth": 4.0
+      }
+    ]
+  },
+  "feature_selection": {
+    "full_validation_auc": 0.8232825968618198,
+    "short_validation_auc": 0.8157632911457238,
+    "forward_top_k": [
+      "GenHlth",
+      "HighBP",
+      "BMI",
+      "Age",
+      "HighChol"
+    ],
+    "forward_top_k_equals_short": true
+  },
+  "bmi_cap": null,
+  "bmi_handling": "Original BMI values retained; no upper cap",
+  "selection_rule": "Use the short 5-feature questionnaire when its validation ROC-AUC is within 0.010 of the best full-feature candidate. Hyperparameters are tuned via 3-fold StratifiedGroupKFold on the training split only.",
+  "short_auc_gap": 0.008037789100533543,
+  "audit": {
+    "rows": 253680,
+    "columns": [
+      "Diabetes_binary",
+      "HighBP",
+      "HighChol",
+      "CholCheck",
+      "BMI",
+      "Smoker",
+      "Stroke",
+      "HeartDiseaseorAttack",
+      "PhysActivity",
+      "Fruits",
+      "Veggies",
+      "HvyAlcoholConsump",
+      "AnyHealthcare",
+      "NoDocbcCost",
+      "GenHlth",
+      "MentHlth",
+      "PhysHlth",
+      "DiffWalk",
+      "Sex",
+      "Age",
+      "Education",
+      "Income"
+    ],
+    "dtypes": {
+      "Diabetes_binary": "float64",
+      "HighBP": "float64",
+      "HighChol": "float64",
+      "CholCheck": "float64",
+      "BMI": "float64",
+      "Smoker": "float64",
+      "Stroke": "float64",
+      "HeartDiseaseorAttack": "float64",
+      "PhysActivity": "float64",
+      "Fruits": "float64",
+      "Veggies": "float64",
+      "HvyAlcoholConsump": "float64",
+      "AnyHealthcare": "float64",
+      "NoDocbcCost": "float64",
+      "GenHlth": "float64",
+      "MentHlth": "float64",
+      "PhysHlth": "float64",
+      "DiffWalk": "float64",
+      "Sex": "float64",
+      "Age": "float64",
+      "Education": "float64",
+      "Income": "float64"
+    },
+    "missing": {
+      "Diabetes_binary": 0,
+      "HighBP": 0,
+      "HighChol": 0,
+      "CholCheck": 0,
+      "BMI": 0,
+      "Smoker": 0,
+      "Stroke": 0,
+      "HeartDiseaseorAttack": 0,
+      "PhysActivity": 0,
+      "Fruits": 0,
+      "Veggies": 0,
+      "HvyAlcoholConsump": 0,
+      "AnyHealthcare": 0,
+      "NoDocbcCost": 0,
+      "GenHlth": 0,
+      "MentHlth": 0,
+      "PhysHlth": 0,
+      "DiffWalk": 0,
+      "Sex": 0,
+      "Age": 0,
+      "Education": 0,
+      "Income": 0
+    },
+    "exact_duplicate_rows": 24206,
+    "conflicting_predictor_profiles": 1566,
+    "class_counts": {
+      "0": 218334,
+      "1": 35346
+    },
+    "ranges": {
+      "Diabetes_binary": [
+        0.0,
+        1.0
+      ],
+      "HighBP": [
+        0.0,
+        1.0
+      ],
+      "HighChol": [
+        0.0,
+        1.0
+      ],
+      "CholCheck": [
+        0.0,
+        1.0
+      ],
+      "BMI": [
+        12.0,
+        98.0
+      ],
+      "Smoker": [
+        0.0,
+        1.0
+      ],
+      "Stroke": [
+        0.0,
+        1.0
+      ],
+      "HeartDiseaseorAttack": [
+        0.0,
+        1.0
+      ],
+      "PhysActivity": [
+        0.0,
+        1.0
+      ],
+      "Fruits": [
+        0.0,
+        1.0
+      ],
+      "Veggies": [
+        0.0,
+        1.0
+      ],
+      "HvyAlcoholConsump": [
+        0.0,
+        1.0
+      ],
+      "AnyHealthcare": [
+        0.0,
+        1.0
+      ],
+      "NoDocbcCost": [
+        0.0,
+        1.0
+      ],
+      "GenHlth": [
+        1.0,
+        5.0
+      ],
+      "MentHlth": [
+        0.0,
+        30.0
+      ],
+      "PhysHlth": [
+        0.0,
+        30.0
+      ],
+      "DiffWalk": [
+        0.0,
+        1.0
+      ],
+      "Sex": [
+        0.0,
+        1.0
+      ],
+      "Age": [
+        1.0,
+        13.0
+      ],
+      "Education": [
+        1.0,
+        6.0
+      ],
+      "Income": [
+        1.0,
+        8.0
+      ]
+    },
+    "splits": {
+      "train": {
+        "n": 152208,
+        "positive_rate": 0.1393356459581625
+      },
+      "validation": {
+        "n": 50736,
+        "positive_rate": 0.13932907600126143
+      },
+      "test": {
+        "n": 50736,
+        "positive_rate": 0.13932907600126143
+      }
+    },
+    "duplicates": {
+      "extra_copies_by_class": {
+        "0": 23957,
+        "1": 249
+      },
+      "positive_rate_all_rows": 0.13933301797540207,
+      "positive_rate_after_dedup": 0.1529454317264701
+    },
+    "bmi_positive_rate_by_bin": {
+      "(0.0, 18.5]": 0.05404541093700032,
+      "(18.5, 25.0]": 0.062474593200850186,
+      "(25.0, 30.0]": 0.12682065455821706,
+      "(30.0, 35.0]": 0.2115267810946393,
+      "(35.0, 40.0]": 0.2853107344632768,
+      "(40.0, 50.0]": 0.3417884780739467,
+      "(50.0, 60.0]": 0.3883211678832117,
+      "(60.0, inf]": 0.2124223602484472
+    },
+    "bmi_cap": null,
+    "bmi_handling": "Original BMI values retained; no upper cap"
+  },
+  "versions": {
+    "python": "3.15.2",
+    "sklearn": "1.9.1"
+  },
+  "sha256": "19f367e3e3350768f0c144c5d73ee5b355f67a57eaaa86ca7bd8aec594d8b1d0",
+  "reference": {
+    "Age": 8.0,
+    "BMI": 27.0,
+    "HighBP": 0.0,
+    "HighChol": 0.0,
+    "GenHlth": 2.0
+  },
+  "split_method": "Approximately 60/20/20 stratified group folds; identical full 21-feature profiles stay in one split. Original rows retained; no respondent IDs available.",
+  "imbalance": "No oversampling or class weights: retain original prevalence and probability scale. Asymmetric validation cost selects operating threshold."
+}
